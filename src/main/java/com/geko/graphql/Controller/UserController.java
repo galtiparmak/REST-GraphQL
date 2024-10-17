@@ -44,6 +44,12 @@ public class UserController {
         return userService.getTasksOfUser(userId);
     }
 
+    @QueryMapping
+    public List<ToDoItem> getTasksByTheirPriority(@Argument Integer userId, @Argument Priority priority)
+    {
+        return userService.getTasksByPriority(userId, priority);
+    }
+
 
 
      /**

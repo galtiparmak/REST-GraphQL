@@ -1,6 +1,7 @@
 package com.geko.graphql.Controller;
 
 import com.geko.graphql.Client.UserClient;
+import com.geko.graphql.Entity.Priority;
 import com.geko.graphql.Entity.ToDoItem;
 import com.geko.graphql.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class UserRESTController {
     {
         List<ToDoItem> tasks = userClient.getTasksOfUser(userId);
         return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping("/getTasksByTheirPriority")
+    public ResponseEntity<List<ToDoItem>> getTasksByTheirPriority(@RequestParam Integer userId, @RequestParam Priority priority)
+    {
+        List<ToDoItem> list = userClient.getTasksByTheirPriority(userId, priority);
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping("/create")

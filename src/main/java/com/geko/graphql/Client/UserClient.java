@@ -74,6 +74,29 @@ public class UserClient {
                 .toEntityList(ToDoItem.class).block();
     }
 
+    public List<ToDoItem> getTasksByTheirPriority(Integer userId, Priority priority)
+    {
+        String query = String.format("query GetTasksByTheirPriority {\n" +
+                "    getTasksByTheirPriority(userId: \"%d\", priority: %s) {\n" +
+                "        title\n" +
+                "        description\n" +
+                "        priority\n" +
+                "        status\n" +
+                "        createdDate\n" +
+                "        dueDate\n" +
+                "        user {\n" +
+                "            username\n" +
+                "        }\n" +
+                "    }\n" +
+                "}", userId, priority.name());
+
+        return httpGraphQlClient
+                .document(query)
+                .retrieve("getTasksByTheirPriority")
+                .toEntityList(ToDoItem.class)
+                .block();
+    }
+
     public String createUser(String username, String email, String password)
     {
         String query = String.format("mutation CreateUser {\n" +

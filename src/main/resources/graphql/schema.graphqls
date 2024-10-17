@@ -31,6 +31,7 @@ type Query
     getAllUsers: [User]
     getUser(userId: ID!): User
     getTasksOfUser(userId: ID!): [ToDoItem]
+    getTasksByTheirPriority(userId: ID!, priority:Priority!): [ToDoItem]
 }
 
 type Mutation
