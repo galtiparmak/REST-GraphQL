@@ -89,6 +89,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>graphql</finalName>
 	</build>
 
 </project>

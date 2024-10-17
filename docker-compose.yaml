@@ -1,0 +1,36 @@
+networks:
+  graphql-mysql-net:
+    driver: bridge
+
+services:
+  graphql-mysqldb:
+    image: mysql:8
+    container_name: graphql-mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: graphql
+      MYSQL_USER: geko
+      MYSQL_PASSWORD: password
+    networks:
+      - graphql-mysql-net
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  graphql-app-container:
+    build: .
+    container_name: graphql-app-container
+    networks:
+      - graphql-mysql-net
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://graphql-mysqldb:3306/graphql
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - graphql-mysqldb
+
+volumes:
+  db_data:
