@@ -1,0 +1,42 @@
+type User
+{
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+    toDoList: [ToDoItem]
+}
+
+type ToDoItem
+{
+    id: ID!
+    title: String!
+    description: String
+    priority: Priority!
+    status: String!
+    createdDate: String!
+    dueDate: String
+    user: User!
+}
+
+enum Priority
+{
+    LOW
+    MEDIUM
+    HIGH
+}
+
+type Query
+{
+    getAllUsers: [User]
+    getUser(userId: ID!): User
+    getTasksOfUser(userId: ID!): [ToDoItem]
+}
+
+type Mutation
+{
+    createUser(username: String!, email: String!, password: String!): String
+    deleteUser(userId: ID!): String
+    createTask(userId: ID!, title: String!, description: String, priority: Priority!, due: Float!): String
+    removeTask(taskId: ID!): String
+}
